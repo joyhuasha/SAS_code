@@ -1,0 +1,24 @@
+PROC IMPORT OUT= WORK.Sanofi_Targeting_1134091_
+     DATAFILE= "C:\shua\Request\Sanofi\Sanofi_Targeting_1134091_Client2.xlsx" 
+     DBMS=EXCEL REPLACE;
+RUN;
+
+
+%let ora_un= B2449554_PCYC_POTENTIAL;
+%let ora_pw= B2449554; 
+%let dbase = PAA;
+libname odata oledb init_string="Provider=OraOLEDB.Oracle;Data Source=&dbase.;USER ID=&ora_un;PASSWORD=&ora_pw.;PORT=1521" 
+schema="&ora_un.";
+
+
+data ref_diag_all_1903; 
+set odata.ref_diag_all_1903;
+run;  
+
+%let path = L:\Projects\Prescriber\Prescriber level Projection\Pharmacyclics\1204663_PCYC_IMBRUVICA_POTENTIAL\1903_refresh\Codes\Market Definition;
+
+
+PROC EXPORT DATA= WORK.ref_diag_all_1903 
+            OUTFILE= "&path\ref_diag_all_1903.xlsx" 
+            DBMS=xlsx Label REPLACE;
+RUN;

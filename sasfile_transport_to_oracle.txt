@@ -1,0 +1,11 @@
+%let ora_un= B1124986_AMGEN_REMICADE;
+%let ora_pw= B1124986; 
+%let dbase = DDM02;
+libname odata oledb init_string="Provider=OraOLEDB.Oracle;Data Source=&dbase.;USER ID=&ora_un;PASSWORD=&ora_pw.;PORT=1521" 
+schema="&ora_un.";
+
+
+libname out="\\plyvnas01\statservices2\CustomStudies\Sales & Account Management\@Library\Best Address"
+data odata.best_address_jul16;
+set out.best_address_jul16;
+run;
